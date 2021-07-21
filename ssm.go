@@ -7,6 +7,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
+	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ssm"
 	log "github.com/sirupsen/logrus"
@@ -16,11 +17,14 @@ type SSMClient struct {
 	client *ssm.SSM
 }
 
-func NewSSMClient(region string) (*SSMClient, error) {
+func NewSSMClient(region string, profile string) (*SSMClient, error) {
 	var config *aws.Config
 
 	awsSession := session.Must(session.NewSession(
-		&aws.Config{Region: aws.String(region)}))
+		&aws.Config{
+			Region:      aws.String(region),
+			Credentials: credentials.NewSharedCredentials("", profile),
+		}))
 	_, err := awsSession.Config.Credentials.Get()
 	if err != nil {
 		return nil, err

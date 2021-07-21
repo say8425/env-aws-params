@@ -58,6 +58,7 @@ COMMANDS:
 
 GLOBAL OPTIONS:
    --aws-region value        The AWS region to use for the Parameter Store API [$AWS_REGION]
+   --aws-profile value       The AWS profile to use for the Parameter Store API [$AWS_PROFILE]
    --prefix value, -p value  Key prefix that is used to retrieve the environment variables - supports multiple use
    --pristine                Only use values retrieved from Parameter Store, do not inherit the existing environment variables
    --sanitize                Replace invalid characters in keys to underscores
